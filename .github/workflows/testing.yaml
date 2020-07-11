@@ -27,6 +27,7 @@ jobs:
           python3 -m pip install -e '.[testing]'
       - name: Run tests
         run: |
+          export PATH=/home/runner/.local/bin:$PATH
           flake8
           coverage run && coverage report && coverage xml
           mypy -m topological
