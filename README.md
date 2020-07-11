@@ -2,6 +2,8 @@ topological
 ===========
 Python3 library of topological sorting algorithms
 
+![Testing](https://github.com/gmr/topological/workflows/Testing/badge.svg)
+
 Examples
 --------
 
