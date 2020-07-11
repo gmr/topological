@@ -7,9 +7,14 @@ class CyclicDependencyError(ValueError):
 
 def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
         -> typing.List[typing.Any]:
-    """Perform a topological sort on provided graph"""
+    """Perform a topological sort on provided graph
+
+    :raises: CyclicDependencyError
+
+    """
     data = dag.copy()
-    data.update({dep: set() for node in dag for dep in dag[node]
+    data.update({dep: set()
+                 for node in dag for dep in dag[node]
                  if dep not in dag})
 
     for node, deps in data.items():
@@ -26,5 +31,4 @@ def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
             result.append(node)
             for other in data:
                 data[other].discard(node)
-
     return result
