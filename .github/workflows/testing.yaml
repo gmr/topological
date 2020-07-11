@@ -23,7 +23,7 @@ jobs:
       - name: Setup environment
         run: |
           mkdir -p build
-          python3 -m pip install --upgrade pip wheel
+          python3 -m pip install --upgrade pip setuptools wheel
           pip3 --no-cache-dir install -e '.[testing]'
       - name: Run tests
         run: |
