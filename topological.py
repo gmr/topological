@@ -1,3 +1,4 @@
+import heapq
 import typing
 
 
@@ -5,8 +6,9 @@ class CyclicDependencyError(ValueError):
     """Raised whe a circular dependency is found"""
 
 
-def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
-        -> typing.List[typing.Any]:
+def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]],
+         weights: typing.Dict[typing.Any, int] = {}) \
+             -> typing.List[typing.Any]:
     """Perform a topological sort on provided graph
 
     :raises: CyclicDependencyError
@@ -26,9 +28,12 @@ def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
 
     result = []
     while data:
-        for node in sorted(k for k in data.keys() if not data[k]):
+        leaves = [(weights.get(k2, 1), k2) for k2 in
+                  [k1 for k1 in data.keys() if not data[k1]]]
+        heapq.heapify(leaves)
+        for _, node in leaves:
             del data[node]
-            result.append(node)
+            result.append(node) if node else None
             for other in data:
                 data[other].discard(node)
     return result
