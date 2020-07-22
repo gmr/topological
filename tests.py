@@ -29,5 +29,9 @@ class TopologicalSort(unittest.TestCase):
         dag = {'A': {'C'},  'B': {''}, 'C': {'B', 'D'}, 'D': {''}, 'E': {'C'}}
         weights = {'A': 10, 'B': 25, 'C': 17, 'D': 1, 'E': 10}
         expectation = ['D', 'B', 'C', 'A', 'E']
-        result = topological.sort(dag, weights)
-        self.assertEqual(result, expectation)
+        self.assertEqual(topological.sort(dag, weights), expectation)
+
+        dag = {'A': {'C'},  'B': {''}, 'C': {'B', 'D'}, 'D': {''}, 'E': {'C'}}
+        weights = {'A': 10, 'B': 25, 'C': 17, 'D': 1, 'E': 1}
+        expectation = ['D', 'B', 'C', 'E', 'A']
+        self.assertEqual(topological.sort(dag, weights), expectation)
