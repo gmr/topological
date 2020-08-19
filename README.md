@@ -2,12 +2,12 @@ topological
 ===========
 Python3 library of topological sorting algorithms. 
 
+![Testing](https://github.com/gmr/topological/workflows/Testing/badge.svg)
+
 The library provides two distinct functions, sort and weighted_sort.    
 * sort function is a pure topological sorting of a Directed acyclic graph
-* weighted_sort provides ability to define weights to nodes, to control the order of evaluating the dependencies of the nodes in the graph.
-
-
-![Testing](https://github.com/gmr/topological/workflows/Testing/badge.svg)
+* weighted_sort provides ability to define weights to nodes, to control the order of evaluation of the dependencies of the nodes in the graph.
+The node with lowest weight is evaluated first among the siblings.  
 
 Examples
 --------
