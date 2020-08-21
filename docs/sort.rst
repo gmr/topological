@@ -1,0 +1,4 @@
+sort
+====
+
+.. autofunction:: topological.sort

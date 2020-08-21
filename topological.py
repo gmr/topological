@@ -23,10 +23,12 @@ def _validate_dag(dag):
 
 def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
         -> typing.List[typing.Any]:
-    """Perform a topological sort on provided graph
+    """Performs a topological sort on provided graph
 
-    :raises: CyclicDependencyError
+        :param dag: The directed acyclic graph to be sorted
+        :type dag: :data:`typing.Dict[typing.Any, typing.Set[typing.Any]]`
 
+        :raises: CyclicDependencyError On detection of a cyclic dependency
     """
 
     data = _validate_dag(dag)
@@ -43,9 +45,15 @@ def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
 def weighted_sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]],
                   weights: typing.Dict[typing.Any, int] = {}) \
             -> typing.List[typing.Any]:
-    """Perform a topological sort on provided graph
+    """Performs a weighted topological sort on provided graph
 
-    :raises: CyclicDependencyError
+        :param dag: The directed acyclic graph to be sorted
+        :type dag: :data:`typing.Dict[typing.Any, typing.Set[typing.Any]]`
+
+        :param weights: Weights for graph nodes
+        :type weights: :data:`typing.Dict[typing.Any, int]`
+
+        :raises: CyclicDependencyError On detection of a cyclic dependency
 
     """
     data = _validate_dag(dag)
