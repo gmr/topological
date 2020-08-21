@@ -6,7 +6,13 @@ class CyclicDependencyError(ValueError):
     """Raised whe a circular dependency is found"""
 
 
-def _validate_dag(dag):
+def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
+        -> typing.List[typing.Any]:
+    """Performs a topological sort on provided graph
+
+    :raises: CyclicDependencyError
+    """
+
     data = dag.copy()
     data.update({dep: set()
                  for node in dag for dep in dag[node]
@@ -18,14 +24,7 @@ def _validate_dag(dag):
             if node in data[dep]:
                 raise CyclicDependencyError(
                     'Circular dependency between {} and {}'.format(node, dep))
-    return data
 
-
-def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
-        -> typing.List[typing.Any]:
-    """Performs a topological sort on provided graph"""
-
-    data = _validate_dag(dag)
     result = []
     while data:
         for node in sorted(k for k in data.keys() if not data[k]):
@@ -39,8 +38,24 @@ def sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]]) \
 def weighted_sort(dag: typing.Dict[typing.Any, typing.Set[typing.Any]],
                   weights: typing.Dict[typing.Any, int] = {}) \
             -> typing.List[typing.Any]:
-    """Performs a weighted topological sort on provided graph"""
-    data = _validate_dag(dag)
+    """Performs a weighted topological sort on provided graph
+
+    :raises: CyclicDependencyError
+
+    """
+
+    data = dag.copy()
+    data.update({dep: set()
+                 for node in dag for dep in dag[node]
+                 if dep not in dag})
+
+    for node, deps in data.items():
+        data[node].discard(node)
+        for dep in deps:
+            if node in data[dep]:
+                raise CyclicDependencyError(
+                    'Circular dependency between {} and {}'.format(node, dep))
+
     result = []
     while data:
         wtd_leaves = [(weights.get(k2, 1), k2) for k2 in
