@@ -1,5 +1,0 @@
-Sphinx>3
-sphinx-autodoc-typehints
-sphinx_rtd_theme
-typed_ast
-typing_extensions
