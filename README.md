@@ -4,6 +4,7 @@ Python3 library of topological sorting algorithms.
 
 ![Testing](https://github.com/gmr/topological/workflows/Testing/badge.svg)
 
+The library provides two distinct functions, ``sort`` and ``weighted_sort``
 * ``sort`` function is an implementation of topological sorting of a given Directed Acyclic Graph (DAG)
 * ``weighted_sort`` is a customized verison of topological sort. This function takes two arguments, 
       one is ``dag`` and the other argument is ``weights`` for the nodes in the graph.
